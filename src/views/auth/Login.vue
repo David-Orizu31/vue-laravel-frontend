@@ -1,10 +1,14 @@
 <script setup lang="ts">
-    import axiosInstance from '@/lib/axios';
-    // import { reactive } from 'vue';
-    import { AxiosError } from 'axios';
-    import type { FormKitNode } from '@formkit/core';
-    import type { LoginForm } from '@/types';
-    import router from '@/router';
+    import { useAuthStore } from '@/store/auth';
+
+    const { login } = useAuthStore();
+
+    // import axiosInstance from '@/lib/axios';
+    // // import { reactive } from 'vue';
+    // import { AxiosError } from 'axios';
+    // import type { FormKitNode } from '@formkit/core';
+    // import type { LoginForm } from '@/types';
+    // import router from '@/router';
 
     // const form = reactive<LoginForm>({
     //     email: '',
@@ -16,23 +20,23 @@
     //     password: [],
     // });
 
-    const login = async (payload: LoginForm, node?: FormKitNode) => {
-        await axiosInstance.get('/sanctum/csrf-cookie', {
-            baseURL: "http://localhost:8000",
-        });
-        // errors.email = [];
-        // errors.password = [];
-        try {
-            await axiosInstance.post('/login', payload);
-            router.push('/dashboard');
-        } catch (e) {
-            if (e instanceof AxiosError && e.response?.status === 422) {
-                // errors.email = e.response.data.errors.email;
-                // errors.password = e.response.data.errors.password;
-                node?.setErrors([], e.response?.data.errors)
-            }
-        }
-    };
+    // const login = async (payload: LoginForm, node?: FormKitNode) => {
+    //     await axiosInstance.get('/sanctum/csrf-cookie', {
+    //         baseURL: "http://localhost:8000",
+    //     });
+    //     // errors.email = [];
+    //     // errors.password = [];
+    //     try {
+    //         await axiosInstance.post('/login', payload);
+    //         router.push('/dashboard');
+    //     } catch (e) {
+    //         if (e instanceof AxiosError && e.response?.status === 422) {
+    //             // errors.email = e.response.data.errors.email;
+    //             // errors.password = e.response.data.errors.password;
+    //             node?.setErrors([], e.response?.data.errors)
+    //         }
+    //     }
+    // };
 </script>
 
 <template>
