@@ -6,6 +6,8 @@ import Dashboard from '@/views/auth/Dashboard.vue'
 import NotFound from '@/views/404.vue'
 import ServerError from '@/views/500.vue'
 import { useAuthStore } from '@/store/auth.ts'
+import PostIndex from '@/views/posts/PostIndex.vue'
+import PostCreate from '@/views/posts/PostCreate.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +33,18 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/dashboard/posts',
+      name: 'PostIndex',
+      component: PostIndex,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/dashboard/posts/create',
+      name: 'PostCreate',
+      component: PostCreate,
       meta: { requiresAuth: true }
     },
     {
