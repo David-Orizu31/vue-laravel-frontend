@@ -3,14 +3,17 @@ import axiosInstance from '@/lib/axios';
 import router from '@/router';
 import type { FormKitNode } from '@formkit/core';
 import { AxiosError } from 'axios';
+import { useToast } from "vue-toast-notification";
 
 type PostForm = {
     title: string;
     body: string;
 }
 const createPost = async (payload: PostForm, node?: FormKitNode) => {
+    const $toast = useToast();
     try {
         await axiosInstance.post('/dashboard/posts', payload);
+        $toast.success('Post Created Successfully');
         router.push('/dashboard/posts');
     } catch (e) {
         if (e instanceof AxiosError && e.response?.status === 422) {
