@@ -3,15 +3,8 @@ import axiosInstance from '@/lib/axios';
 import { ref, onMounted } from 'vue';
 // @ts-expect-error laravel-vue-pagination does not ship TypeScript declarations.
 import { TailwindPagination } from 'laravel-vue-pagination';
-
-type Post = {
-    id: number;
-    title: string;
-    slug: string;
-    published: boolean;
-    body: string;
-    createdAt: string;
-}
+import { EyeIcon } from '@heroicons/vue/24/solid';
+import type { Post } from '@/types';
 
 type LaravelData = {
     data: Post[];
@@ -86,7 +79,11 @@ onMounted(async () => {
                                 {{ post.createdAt }}
                             </td>
                             <td class="px-6 py-4">
-                                Edit/Delete
+                                <div class="flex space-x-4">
+                                    <RouterLink :to="{ name: 'PostView', params: {id: post.id} }">
+                                        <EyeIcon class="w-5 h-5 text-blue-500 dark:text-blue-400 hover:text-blue-700" />
+                                    </RouterLink>
+                                </div>
                             </td>
                         </tr>
                     </template>
